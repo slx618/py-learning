@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h2>17.2 requests</h2><div class="x-wiki-content x-main-content"><p>我们已经讲解了Python内置的urllib模块，用于访问网络资源。但是，它用起来比较麻烦，而且，缺少很多实用的高级功能。</p>
+<p>更好的方案是使用requests。它是一个Python第三方库，处理URL资源特别方便。</p>
+<h3><a name="#-E5-AE-89-E8-A3-85requests"></a>安装requests</h3>
+<p>如果安装了Anaconda，requests就已经可用了。否则，需要在命令行下通过pip安装：</p>
+<pre><code>$ pip install requests
+</code></pre><p>如果遇到Permission denied安装失败，请加上sudo重试。</p>
+<h3><a name="#-E4-BD-BF-E7-94-A8requests"></a>使用requests</h3>
+<p>要通过GET访问一个页面，只需要几行代码：</p>
+<pre><code>&gt;&gt;&gt; import requests
+&gt;&gt;&gt; r = requests.get('https://www.douban.com/') # 豆瓣首页
+&gt;&gt;&gt; r.status_code
+200
+&gt;&gt;&gt; r.text
+r.text
+'&lt;!DOCTYPE HTML&gt;\n&lt;html&gt;\n&lt;head&gt;\n&lt;meta name="description" content="提供图书、电影、音乐唱片的推荐、评论和...'
+</code></pre><p>对于带参数的URL，传入一个dict作为<code>params</code>参数：</p>
+<pre><code>&gt;&gt;&gt; r = requests.get('https://www.douban.com/search', params={'q': 'python', 'cat': '1001'})
+&gt;&gt;&gt; r.url # 实际请求的URL
+'https://www.douban.com/search?q=python&amp;cat=1001'
+</code></pre><p>requests自动检测编码，可以使用<code>encoding</code>属性查看：</p>
+<pre><code>&gt;&gt;&gt; r.encoding
+'utf-8'
+</code></pre><p>无论响应是文本还是二进制内容，我们都可以用<code>content</code>属性获得<code>bytes</code>对象：</p>
+<pre><code>&gt;&gt;&gt; r.content
+b'&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;\n...'
+</code></pre><p>requests的方便之处还在于，对于特定类型的响应，例如JSON，可以直接获取：</p>
+<pre><code>&gt;&gt;&gt; r = requests.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20%3D%202151330&amp;format=json')
+&gt;&gt;&gt; r.json()
+{'query': {'count': 1, 'created': '2017-11-17T07:14:12Z', ...
+</code></pre><p>需要传入HTTP Header时，我们传入一个dict作为<code>headers</code>参数：</p>
+<pre><code>&gt;&gt;&gt; r = requests.get('https://www.douban.com/', headers={'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit'})
+&gt;&gt;&gt; r.text
+'&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n&lt;meta charset="UTF-8"&gt;\n &lt;title&gt;豆瓣(手机版)&lt;/title&gt;...'
+</code></pre><p>要发送POST请求，只需要把<code>get()</code>方法变成<code>post()</code>，然后传入<code>data</code>参数作为POST请求的数据：</p>
+<pre><code>&gt;&gt;&gt; r = requests.post('https://accounts.douban.com/login', data={'form_email': 'abc@example.com', 'form_password': '123456'})
+</code></pre><p>requests默认使用<code>application/x-www-form-urlencoded</code>对POST数据编码。如果要传递JSON数据，可以直接传入json参数：</p>
+<pre><code>params = {'key': 'value'}
+r = requests.post(url, json=params) # 内部自动序列化为JSON
+</code></pre><p>类似的，上传文件需要更复杂的编码格式，但是requests把它简化成<code>files</code>参数：</p>
+<pre><code>&gt;&gt;&gt; upload_files = {'file': open('report.xls', 'rb')}
+&gt;&gt;&gt; r = requests.post(url, files=upload_files)
+</code></pre><p>在读取文件时，注意务必使用<code>'rb'</code>即二进制模式读取，这样获取的<code>bytes</code>长度才是文件的长度。</p>
+<p>把<code>post()</code>方法替换为<code>put()</code>，<code>delete()</code>等，就可以以PUT或DELETE方式请求资源。</p>
+<p>除了能轻松获取响应内容外，requests对获取HTTP响应的其他信息也非常简单。例如，获取响应头：</p>
+<pre><code>&gt;&gt;&gt; r.headers
+{Content-Type': 'text/html; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Content-Encoding': 'gzip', ...}
+&gt;&gt;&gt; r.headers['Content-Type']
+'text/html; charset=utf-8'
+</code></pre><p>requests对Cookie做了特殊处理，使得我们不必解析Cookie就可以轻松获取指定的Cookie：</p>
+<pre><code>&gt;&gt;&gt; r.cookies['ts']
+'example_cookie_12345'
+</code></pre><p>要在请求中传入Cookie，只需准备一个dict传入<code>cookies</code>参数：</p>
+<pre><code>&gt;&gt;&gt; cs = {'token': '12345', 'status': 'working')
+&gt;&gt;&gt; r = requests.get(url, cookies=cs)
+</code></pre><p>最后，要指定超时，传入以秒为单位的timeout参数：</p>
+<pre><code>&gt;&gt;&gt; r = requests.get(url, timeout=2.5) # 2.5秒后超时
+</code></pre><h3><a name="#-E5-B0-8F-E7-BB-93"></a>小结</h3>
+<p>用requests获取URL资源，就是这么简单！</p>
+</div>
+</body>
+</html>

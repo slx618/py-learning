@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h2>3. 第一个Python程序</h2><div class="x-wiki-content x-main-content"><p>在正式编写第一个Python程序前，我们先复习一下什么是命令行模式和Python交互模式。</p>
+<h3><a name="#-E5-91-BD-E4-BB-A4-E8-A1-8C-E6-A8-A1-E5-BC-8F"></a>命令行模式</h3>
+<p>在Windows开始菜单选择“命令提示符”，就进入到命令行模式，它的提示符类似<code>C:\&gt;</code>：</p>
+<pre><code class="lang-ascii">┌────────────────────────────────────────────────────────┐
+│Command Prompt                                    - □ x │
+├────────────────────────────────────────────────────────┤
+│Microsoft Windows [Version 10.0.0]                      │
+│(c) 2015 Microsoft Corporation. All rights reserved.    │
+│                                                        │
+│C:\&gt; _                                                  │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+</code></pre>
+<h3><a name="#Python-E4-BA-A4-E4-BA-92-E6-A8-A1-E5-BC-8F"></a>Python交互模式</h3>
+<p>在命令行模式下敲命令<code>python</code>，就看到类似如下的一堆文本输出，然后就进入到Python交互模式，它的提示符是<code>&gt;&gt;&gt;</code>。</p>
+<pre><code class="lang-ascii">┌────────────────────────────────────────────────────────┐
+│Command Prompt - python                           - □ x │
+├────────────────────────────────────────────────────────┤
+│Microsoft Windows [Version 10.0.0]                      │
+│(c) 2015 Microsoft Corporation. All rights reserved.    │
+│                                                        │
+│C:\&gt; python                                             │
+│Python 3.6 ... on win32                                 │
+│Type "help", ... for more information.                  │
+│&gt;&gt;&gt; _                                                   │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+</code></pre>
+<p>在Python交互模式下输入<code>exit()</code>并回车，就退出了Python交互模式，并回到命令行模式：</p>
+<pre><code class="lang-ascii">┌────────────────────────────────────────────────────────┐
+│Command Prompt                                    - □ x │
+├────────────────────────────────────────────────────────┤
+│Microsoft Windows [Version 10.0.0]                      │
+│(c) 2015 Microsoft Corporation. All rights reserved.    │
+│                                                        │
+│C:\&gt; python                                             │
+│Python 3.6 ... on win32                                 │
+│Type "help", ... for more information.                  │
+│&gt;&gt;&gt; exit()                                              │
+│                                                        │
+│C:\&gt; _                                                  │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+</code></pre>
+<p>也可以直接通过开始菜单选择<code>Python (command line)</code>菜单项，<em>直接进入</em>Python交互模式，但是输入<code>exit()</code>后窗口会直接关闭，不会回到命令行模式。</p>
+<p>了解了如何启动和退出Python的交互模式，我们就可以正式开始编写Python代码了。</p>
+<p>在写代码之前，请<em>千万不要</em>用“复制”-“粘贴”把代码从页面粘贴到你自己的电脑上。写程序也讲究一个感觉，你需要一个字母一个字母地把代码自己敲进去，在敲代码的过程中，初学者经常会敲错代码：拼写不对，大小写不对，混用中英文标点，混用空格和Tab键，所以，你需要仔细地检查、对照，才能以最快的速度掌握如何写程序。</p>
+<p><img alt="simpson-learn-py3" data-src="https://cdn.liaoxuefeng.com/cdn/files/attachments/001431639811536fb2d4d2944694d419486215f55c8d544000/l" src="https://cdn.liaoxuefeng.com/cdn/files/attachments/001431639811536fb2d4d2944694d419486215f55c8d544000/l"/></p>
+<p>在交互模式的提示符<code>&gt;&gt;&gt;</code>下，直接输入代码，按回车，就可以立刻得到代码执行结果。现在，试试输入<code>100+200</code>，看看计算结果是不是300：</p>
+<pre><code>&gt;&gt;&gt; 100+200
+300
+</code></pre><p>很简单吧，任何有效的数学计算都可以算出来。</p>
+<p>如果要让Python打印出指定的文字，可以用<code>print()</code>函数，然后把希望打印的文字用单引号或者双引号括起来，但不能混用单引号和双引号：</p>
+<pre><code>&gt;&gt;&gt; print('hello, world')
+hello, world
+</code></pre><p>这种用单引号或者双引号括起来的文本在程序中叫字符串，今后我们还会经常遇到。</p>
+<p>最后，用<code>exit()</code>退出Python，我们的第一个Python程序完成！唯一的缺憾是没有保存下来，下次运行时还要再输入一遍代码。</p>
+<p>视频演示：</p>
+<video controls="" width="100%">
+<source src="http://asklxf.coding.me/liaoxuefeng/v/python/first-py-code.mp4"/>
+</video>
+
+<h3><a name="#-E5-91-BD-E4-BB-A4-E8-A1-8C-E6-A8-A1-E5-BC-8F-E5-92-8CPython-E4-BA-A4-E4-BA-92-E6-A8-A1-E5-BC-8F"></a>命令行模式和Python交互模式</h3>
+<p>请注意区分命令行模式和Python交互模式。</p>
+<p>在命令行模式下，可以执行<code>python</code>进入Python交互式环境，也可以执行<code>python hello.py</code>运行一个<code>.py</code>文件。</p>
+<p>执行一个<code>.py</code>文件<em>只能</em>在命令行模式执行。如果敲一个命令<code>python hello.py</code>，看到如下错误：</p>
+<pre><code class="lang-ascii">┌────────────────────────────────────────────────────────┐
+│Command Prompt                                    _ □ x │
+├────────────────────────────────────────────────────────┤
+│Microsoft Windows [Version 10.0.0]                      │
+│(c) 2015 Microsoft Corporation. All rights reserved.    │
+│                                                        │
+│C:\&gt; python hello.py                                    │
+│python: can't open file 'hello.py': [Errno 2] No such   │
+│file or directory                                       │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+</code></pre>
+<p>错误提示<code>No such file or directory</code>说明这个<code>hello.py</code>在当前目录<em>找不到</em>，必须先把当前目录切换到<code>hello.py</code>所在的目录下，才能正常执行：</p>
+<pre><code class="lang-ascii">┌────────────────────────────────────────────────────────┐
+│Command Prompt                                    _ □ x │
+├────────────────────────────────────────────────────────┤
+│Microsoft Windows [Version 10.0.0]                      │
+│(c) 2015 Microsoft Corporation. All rights reserved.    │
+│                                                        │
+│C:\&gt; cd work                                            │
+│                                                        │
+│C:\work&gt; python hello.py                                │
+│Hello, world!                                           │
+│                                                        │
+│                                                        │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+</code></pre>
+<p>此外，在命令行模式运行<code>.py</code>文件和在Python交互式环境下直接运行Python代码有所不同。Python交互式环境会把每一行Python代码的结果自动打印出来，但是，直接运行Python代码却不会。</p>
+<p>例如，在Python交互式环境下，输入：</p>
+<pre><code>&gt;&gt;&gt; 100 + 200 + 300
+600
+</code></pre><p>直接可以看到结果<code>600</code>。</p>
+<p>但是，写一个<code>calc.py</code>的文件，内容如下：</p>
+<pre><code>100 + 200 + 300
+</code></pre><p>然后在命令行模式下执行：</p>
+<pre><code>C:\work&gt;python calc.py
+</code></pre><p>发现什么输出都没有。</p>
+<p>这是正常的。想要输出结果，必须自己用<code>print()</code>打印出来。把<code>calc.py</code>改造一下：</p>
+<pre><code>print(100 + 200 + 300)
+</code></pre><p>再执行，就可以看到结果：</p>
+<pre><code>C:\work&gt;python calc.py
+600
+</code></pre><p>最后，Python交互模式的代码是输入一行，执行一行，而命令行模式下直接运行<code>.py</code>文件是一次性执行该文件内的所有代码。可见，Python交互模式主要是为了调试Python代码用的，也便于初学者学习，它<em>不是</em>正式运行Python代码的环境！</p>
+<h3><a name="#-E5-B0-8F-E7-BB-93"></a>小结</h3>
+<p>在Python交互式模式下，可以直接输入代码，然后执行，并立刻得到结果。</p>
+<p>在命令行模式下，可以直接运行<code>.py</code>文件。</p>
+</div>
+</body>
+</html>

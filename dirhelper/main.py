@@ -10,13 +10,15 @@ def list_dir(dir_path):
         print(e.args[0] + ' is not a directory')
         return
 
+    path = []
     for d in os.listdir(dir_path):
-        print(d)
+        full_path = os.path.join(dir_path, d)
+        path_format = {}
+        path_format['type'] = 'dir' if os.path.isdir(full_path) == True else 'file'
+        path_format['path'] = full_path
+        path.append(path_format)
 
-
-
-
-
+    return path
 
 def init():
     if os.path.isfile('init'):
@@ -69,6 +71,8 @@ def read_init():
 def check_begin_dir(config):
     begin_dir = config['begin_dir']
     file_list = list_dir(begin_dir)
+
+    print(file_list)
 
 
 

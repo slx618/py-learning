@@ -14,17 +14,18 @@ def list_dir(dir_path):
     for d in os.listdir(dir_path):
         full_path = os.path.join(dir_path, d)
         path_format = {}
-        path_format['type'] = 'dir' if os.path.isdir(full_path) == True else 'file'
+        path_format['type'] = 'dir' if os.path.isdir(full_path) else 'file'
         path_format['path'] = full_path
+        path_format['name'] = d
         path.append(path_format)
 
     return path
+
 
 def init():
     if os.path.isfile('init'):
         return read_init()
     else:
-
         begin_dir = input('请输入目标初始目录: ')
         target_dir = input('请输入目标目录: ')
         try:
@@ -68,21 +69,27 @@ def read_init():
     return config
 
 
-def check_begin_dir(config):
-    begin_dir = config['begin_dir']
+def check_begin_dir(begin_dir):
     file_list = list_dir(begin_dir)
-
-    print(file_list)
-
+    return file_list
 
 
-
+def check_target_dir(target_dir):
+    file_list = list_dir(target_dir)
+    return file_list
 
 
 def main():
     config = init()
     print(config)
-    check_begin_dir(config)
+    begin_dir_file_list = check_begin_dir(config['begin_dir'])
+    if len(begin_dir_file_list) == 0:
+        print('开始目录没有任何文件')
+
+    print(begin_dir_file_list)
+
+    target_dir_list = check_target_dir(config['target_dir'])
+    print(target_dir_list)
 
 if __name__ == '__main__':
     main()

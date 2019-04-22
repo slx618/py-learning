@@ -26,13 +26,9 @@ def init():
     if os.path.isfile('init'):
         return read_init()
     else:
-        hint = '请输入需查找的目录: '
-        begin_dir = check_dir(hint)
-        hint = '请输入移动目标目录: '
-        target_dir = check_dir(hint)
         config = {
-            'begin_dir': begin_dir,
-            'target_dir': target_dir
+            'begin_dir':  check_dir('请输入需查找的目录: '),
+            'target_dir': check_dir('请输入移动目标目录: ')
         }
         write_init(config)
 

@@ -26,13 +26,10 @@ def init():
     if os.path.isfile('init'):
         return read_init()
     else:
-        begin_dir = input('请输入目标初始目录: ')
-        target_dir = input('请输入目标目录: ')
-        try:
-            os.path.isdir(begin_dir)
-            os.path.isdir(target_dir)
-        except NotADirectoryError as e:
-            print(e)
+        hint = '请输入需查找的目录: '
+        begin_dir = check_dir(hint)
+        hint = '请输入移动目标目录: '
+        target_dir = check_dir(hint)
         config = {
             'begin_dir': begin_dir,
             'target_dir': target_dir
@@ -40,6 +37,20 @@ def init():
         write_init(config)
 
         return config
+
+
+def check_dir(hint):
+    try:
+        dir_path = input(hint)
+        res = os.path.isdir(dir_path)
+        if not res:
+            raise NotADirectoryError
+
+    except NotADirectoryError as e:
+        target_dir = input(hint)
+        check_dir(hint)
+
+    return dir_path
 
 
 def write_init(config):

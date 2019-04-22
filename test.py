@@ -1,3 +1,5 @@
+import os as o
+
 list1 = []
 for i in range(26):
     list1.append((chr(i + ord('a'))))
@@ -18,3 +20,4 @@ print(list1)
 print(list2)
 print(dict1)
 print(dict2)
+o.wait()

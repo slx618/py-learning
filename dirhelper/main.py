@@ -1,9 +1,21 @@
 import os
-import string
 
 
-def list_dir(dir):
-    print("sss", dir)
+def list_dir(dir_path):
+    print('list dir')
+    try:
+        if not os.path.isdir(dir_path):
+            raise NotADirectoryError(dir_path)
+    except NotADirectoryError as e:
+        print(e.args[0] + ' is not a directory')
+        return
+
+    for d in os.listdir(dir_path):
+        print(d)
+
+
+
+
 
 
 def init():
@@ -44,8 +56,6 @@ def read_init():
                 line = line.split('=')
                 key = line[0].strip(' \n')
                 val = line[1].strip(' \n')
-                print(key)
-                print(val)
                 config[key] = val
 
                 line = f.readline()
@@ -56,10 +66,19 @@ def read_init():
     return config
 
 
+def check_begin_dir(config):
+    begin_dir = config['begin_dir']
+    file_list = list_dir(begin_dir)
+
+
+
+
+
+
 def main():
     config = init()
     print(config)
-    list_dir('ss')
+    check_begin_dir(config)
 
 if __name__ == '__main__':
     main()

@@ -47,7 +47,7 @@ def check_dir(hint):
             raise NotADirectoryError
 
     except NotADirectoryError as e:
-        target_dir = input(hint)
+        dir_path = input(hint)
         check_dir(hint)
 
     return dir_path

@@ -1,5 +1,6 @@
 import os
 import difflib
+import shutil
 
 target_distinct_list = [
     'System Volume Information',
@@ -9,6 +10,8 @@ target_distinct_list = [
 begin_distinct_list = [
     'torrent'
 ]
+
+config = {}
 
 
 def list_dir(dir_path, dir_type):
@@ -56,7 +59,7 @@ def init():
             'begin_dir':  check_dir('请输入需查找的目录: '),
             'target_dir': check_dir('请输入移动目标目录: ')
         }
-        write_init(config)
+        write_init()
 
         return config
 
@@ -68,13 +71,13 @@ def check_dir(hint):
         if not res:
             raise NotADirectoryError
 
-    except NotADirectoryError as e:
+    except NotADirectoryError:
         return check_dir('目录不存在, ' + hint)
 
     return dir_path
 
 
-def write_init(config):
+def write_init():
     print('write init')
     with open('init', 'w') as f:
         for i, d in config.items():
@@ -83,7 +86,6 @@ def write_init(config):
 
 def read_init():
     print('read init')
-    config = {}
     try:
         with open('init') as f:
             line = f.readline()
@@ -108,10 +110,25 @@ def move_similar(dir_list):
     print('move similar')
     for d in dir_list:
         print("文件 %s, 移动到目录 %s\n" %(d['begin_path'], d['target_path']))
-        file_move(d)
+        file_move(d['type'], d['target_path'], d['begin_path'], d['begin_name'])
 
-def file_move(file):
+
+def move_unmatched(dir_list):
+    print('move unmatched')
+    for d in dir_list:
+        file_move(d['type'], config['target_dir'], d['path'], d['name'])
+
+
+def file_move(file_type, target_path, begin_path, begin_name):
     print('file move')
+    if file_type == 'file':
+        tmp_path = os.path.join(target_path, begin_name)
+        if not os.path.isdir(tmp_path):
+            os.makedirs(tmp_path)
+        shutil.move(begin_path, tmp_path)
+
+    if file_type == 'dir':
+        shutil.move(begin_name, target_path)
 
 
 def main():
@@ -136,6 +153,7 @@ def main():
                     similar['begin_index'] = i
                     similar['begin_name'] = d['name']
                     similar['begin_path'] = d['path']
+                    similar['type'] = d['type']
                     similar['target_index'] = ii
                     similar['target_name'] = dd['name']
                     similar['target_path'] = dd['path']
@@ -146,10 +164,8 @@ def main():
         if not has_matched:
             unmatched_list.append(d)
 
-    print(similar_list)
     move_similar(similar_list)
-    print(unmatched_list)
-
+    move_unmatched(unmatched_list)
 if __name__ == '__main__':
     main()
 

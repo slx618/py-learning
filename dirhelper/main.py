@@ -1,6 +1,9 @@
 import os
 import difflib
 import shutil
+import tkinter
+import tkinter.filedialog as tf
+
 
 target_distinct_list = [
     'System Volume Information',
@@ -51,7 +54,7 @@ def list_dir(dir_path, dir_type):
     return path
 
 
-def init():
+def init(tk):
     if os.path.isfile('init'):
         return read_init()
     else:
@@ -135,11 +138,19 @@ def file_move(file_type, target_path, begin_path, begin_name):
 
 
 def main():
-    config = init()
+
+    tk = tkinter.Tk('初始化', '文件移动')
+    file_dialog = tf.askopenfilename()
+    config = init(tk)
+
+    tk.mainloop()
+    return
+
     print(config)
     begin_dir_file_list = list_dir(config['begin_dir'], 'begin')
     if len(begin_dir_file_list) == 0:
         print('开始目录没有任何文件')
+        return
 
     target_dir_list = list_dir(config['target_dir'], 'target')
 

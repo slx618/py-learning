@@ -116,7 +116,10 @@ def move_similar(dir_list):
 def move_unmatched(dir_list):
     print('move unmatched')
     for d in dir_list:
-        file_move(d['type'], config['target_dir'], d['path'], d['name'])
+        tmp_path = os.path.join(config['target_dir'], d['name'])
+        if not os.path.isdir(tmp_path):
+            os.makedirs(tmp_path)
+        file_move(d['type'], tmp_path, d['path'], d['name'])
 
 
 def file_move(file_type, target_path, begin_path, begin_name):
@@ -128,7 +131,7 @@ def file_move(file_type, target_path, begin_path, begin_name):
         shutil.move(begin_path, tmp_path)
 
     if file_type == 'dir':
-        shutil.move(begin_name, target_path)
+        shutil.move(begin_path, target_path)
 
 
 def main():

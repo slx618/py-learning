@@ -1,8 +1,7 @@
 
-class UrlCreator(object):
+class UrlCreator:
 
-    @staticmethod
     def generate_list_url(self, base_url, times, step = 20):
         page_count = times * step
-        return print(base_url %page_count)
+        return base_url.format(page_count)
 

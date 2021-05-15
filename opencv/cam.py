@@ -4,7 +4,7 @@ from cv2 import VideoCapture as vc
 cv.namedWindow('w1', cv.WINDOW_NORMAL)
 cv.resizeWindow('w1', 600, 600)
 
-img = cv.imread('../img/0.jpg')
+img = cv.imread('./img/0.jpg')
 size = img.shape
 
 height = size[0]

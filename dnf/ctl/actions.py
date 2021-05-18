@@ -7,6 +7,6 @@ class Actions:
         self.kb = keys.Keys(lg)
 
 
-    def up(self):
+    def moveUp(self):
         self.kb
 

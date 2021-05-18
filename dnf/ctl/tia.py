@@ -1,12 +1,13 @@
 from . import keys, logger
 
 
-class Summoner:
+class Tia:
 
     def __init__(self):
         lg = logger.Logger()
         kb = keys.Keys(lg)
-        kb.directKey('space', type=kb.virtual_keys)
+        kb.directKey('q', type=kb.virtual_keys)
+        kb.parseKeyString("q_down,-400,q_up")  # -4 - pause for 4 ms, 0x00 - hex code of Esc
 
         # kb.directKey('space', type=kb.virtual_keys)
         # kb.parseKeyString('left,-120,up,-120,right,-120,space')

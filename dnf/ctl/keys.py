@@ -359,7 +359,7 @@ class Keys(object):
             return errors
 
         # create new thread if there is no active one
-        if self.keys_process is None or not self.keys_process.isAlive():
+        if self.keys_process is None or not self.keys_process.is_alive():
             self.keys_process = Thread(target=self.keys_worker.processQueue)
             self.keys_process.start()
 
